@@ -1,0 +1,89 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<BlogSample.Models.TaiwanZipCode>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>台灣三碼郵遞區號</h2>
+
+<div class="well">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#UploadModal">
+        匯入資料
+    </button>    
+    <button class="btn btn-primary" id="ButtonExport" name="ButtonExport">
+        匯出資料
+    </button>
+</div>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Zip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Town)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Sequence)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CreateDate)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Town)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sequence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.Partial("_UploadFile")
+
+@section scripts
+{
+    <script src="~/Scripts/bootbox.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/project.js"></script>
+    <script src="~/Scripts/project.extends.js"></script>
+    <script src="~/Scripts/project.ZipCode.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var actionUrls = {
+                Upload: '@Url.Action("Upload", "ZipCode")',
+                Import: '@Url.Action("Import", "ZipCode")',
+                HasData: '@Url.Action("HasData", "ZipCode")',
+                ExportData: '@Url.Action("Export", "ZipCode")'
+            };
+            project.ZipCode.Initialize(actionUrls);
+        });
+    </script>
+}

@@ -1,0 +1,34 @@
+﻿<!-- UploadModal -->
+<div class="modal fade" id="UploadModal" tabindex="-1" role="dialog" aria-labelledby="UploadModalLabel" aria-hidden="true">
+    <form id="UploadForm" action="@Url.Action("Upload", "ZipCode")" method="post" enctype="multipart/form-data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="UploadModalLabel">上傳並匯入資料</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput">
+                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                            <span class="fileinput-filename"></span>
+                        </div>
+                        <span class="input-group-addon btn btn-default btn-file">
+                            <span class="fileinput-new">選擇檔案</span>
+                            <span class="fileinput-exists">更換檔案</span>
+                            <input type="file" name="file" id="file" />
+                        </span>
+                        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">移除檔案</a>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" id="ButtonCancel" class="btn btn-default" data-dismiss="modal" value="取消">
+                    <input type="submit" id="ButtonSubmit" name="ButtonSubmit" class="btn btn-primary" value="上傳檔案">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

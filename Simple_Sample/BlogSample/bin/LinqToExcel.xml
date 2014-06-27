@@ -1,0 +1,650 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinqToExcel</name>
+    </assembly>
+    <members>
+        <member name="T:LinqToExcel.Cell">
+            <summary>
+            Represents a cell and its value in an excel spreadsheet
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.Cell.#ctor(System.Object)">
+            <param name="value">Cell's value</param>
+        </member>
+        <member name="M:LinqToExcel.Cell.Cast``1">
+            <summary>
+            Casts the cell's value to the generic argument type
+            </summary>
+            <typeparam name="T">Object type to convert to</typeparam>
+        </member>
+        <member name="M:LinqToExcel.Cell.ToString">
+            <summary>
+            Cell's value as a string
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.Cell.op_Implicit(LinqToExcel.Cell)~System.String">
+            <summary>
+            Allow cell to be implicitly cast to a string
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.Cell.Value">
+            <summary>
+            Cell's value
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.RowNoHeader.#ctor(System.Collections.Generic.IEnumerable{LinqToExcel.Cell})">
+            <param name="cells">Cells contained within the row</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.AddMapping``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String)">
+            <summary>
+            Add a column to property mapping
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="property">Class property to map to</param>
+            <param name="column">Worksheet column name to map from</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.AddMapping(System.String,System.String)">
+            <summary>
+            Add a column to property mapping
+            </summary>
+            <param name="propertyName">Class property to map to</param>
+            <param name="column">Worksheet column name to map from</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.AddMapping``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,System.Func{System.String,System.Object})">
+            <summary>
+            Add a column to property mapping with a transformation operation
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="property">Class property to map to</param>
+            <param name="column">Worksheet column name to map from</param>
+            <param name="transformation">Lambda expression that transforms a cell value in the spreadsheet to the desired property value</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.AddTransformation``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Func{System.String,System.Object})">
+            <summary>
+            Transforms a cell value in the spreadsheet to the desired property value
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="property">Class property value to transform</param>
+            <param name="transformation">Lambda expression that transforms a cell value in the spreadsheet to the desired property value</param>
+            <example>
+            AddTransformation{Person}(p => p.IsActive, x => x == "Y");
+            AddTransformation{Person}(p => p.IsYoung, x => DateTime.Parse(x) > new DateTime(2000, 1, 1));
+            </example>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.Worksheet``1">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.Worksheet``1(System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.Worksheet``1(System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.Worksheet">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.Worksheet(System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.Worksheet(System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetRange``1(System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetRange``1(System.String,System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetRange``1(System.String,System.String,System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetRange(System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetRange(System.String,System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetRange(System.String,System.String,System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetNoHeader">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetNoHeader(System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetNoHeader(System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetRangeNoHeader(System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetRangeNoHeader(System.String,System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.WorksheetRangeNoHeader(System.String,System.String,System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.GetWorksheetNames">
+            <summary>
+            Returns a list of worksheet names that the spreadsheet contains
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.GetColumnNames(System.String)">
+            <summary>
+            Returns a list of columns names that a worksheet contains
+            </summary>
+            <param name="worksheetName">Worksheet name to get the list of column names from</param>
+        </member>
+        <member name="P:LinqToExcel.IExcelQueryFactory.FileName">
+            <summary>
+            Full path to the Excel spreadsheet
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.IExcelQueryFactory.StrictMapping">
+            <summary>
+            Confirms all the worksheet columns are mapped to a property, and if not, throws a StrictMappingException
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.IExcelQueryFactory.TrimSpaces">
+            <summary>
+            Indicates how to treat leading and trailing spaces in string values.
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.IExcelQueryFactory.DatabaseEngine">
+            <summary>
+            Sets the database engine to use (spreadsheets ending in xlsx, xlsm, xlsb will always use the Ace engine)
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.IExcelQueryFactory.UsePersistentConnection">
+            <summary>
+            If true, uses a single, persistent connection for the lifetime of the factory.
+            If false, a new connection is created for each query
+            Default is false
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.Query.ExcelQueryExecutor.ExecuteScalar``1(Remotion.Data.Linq.QueryModel)">
+            <summary>
+            Executes a query with a scalar result, i.e. a query that ends with a result operator such as Count, Sum, or Average.
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.Query.ExcelQueryExecutor.ExecuteSingle``1(Remotion.Data.Linq.QueryModel,System.Boolean)">
+            <summary>
+            Executes a query with a single result object, i.e. a query that ends with a result operator such as First, Last, Single, Min, or Max.
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.Query.ExcelQueryExecutor.ExecuteCollection``1(Remotion.Data.Linq.QueryModel)">
+            <summary>
+            Executes a query with a collection result.
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.Query.ExcelQueryExecutor.GetDataResults(LinqToExcel.Query.SqlParts,Remotion.Data.Linq.QueryModel)">
+            <summary>
+            Executes the sql query and returns the data results
+            </summary>
+            <typeparam name="T">Data type in the main from clause (queryModel.MainFromClause.ItemType)</typeparam>
+            <param name="queryModel">Linq query model</param>
+        </member>
+        <member name="M:LinqToExcel.Query.ExcelQueryExecutor.LogColumnMappingWarnings(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Logs a warning for any property to column mappings that do not exist in the excel worksheet
+            </summary>
+            <param name="Columns">List of columns in the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.Query.ExcelQueryExecutor.TrimStringValue(System.Object)">
+            <summary>
+            Trims leading and trailing spaces, based on the value of _args.TrimSpaces
+            </summary>
+            <param name="value">Input string value</param>
+            <returns>Trimmed string value</returns>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.#ctor(System.String)">
+            <param name="fileName">Full path to the Excel spreadsheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.AddMapping``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String)">
+            <summary>
+            Add a column to property mapping
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="property">Class property to map to</param>
+            <param name="column">Worksheet column name to map from</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.AddMapping(System.String,System.String)">
+            <summary>
+            Add a column to property mapping
+            </summary>
+            <param name="propertyName">Class property to map to</param>
+            <param name="column">Worksheet column name to map from</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.AddMapping``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,System.Func{System.String,System.Object})">
+            <summary>
+            Add a column to property mapping with a transformation operation
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="property">Class property to map to</param>
+            <param name="column">Worksheet column name to map from</param>
+            <param name="transformation">Lambda expression that transforms the original string value to the desired property value</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.AddTransformation``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Func{System.String,System.Object})">
+            <summary>
+            Transforms a cell value in the spreadsheet to the desired property value
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="property">Class property value to transform</param>
+            <param name="transformation">Lambda expression that transforms the original string value to the desired property value</param>
+            <example>
+            AddTransformation{Person}(p => p.IsActive, x => x == "Y");
+            AddTransformation{Person}(p => p.IsYoung, x => DateTime.Parse(x) > new DateTime(2000, 1, 1));
+            </example>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.GetWorksheetNames">
+            <summary>
+            Returns a list of worksheet names that the spreadsheet contains
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.GetColumnNames(System.String)">
+            <summary>
+            Returns a list of columns names that a worksheet contains
+            </summary>
+            <param name="worksheetName">Worksheet name to get the list of column names from</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet``1">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet``1(System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet``1(System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet(System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet(System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetRange``1(System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="startRange"></param>
+            <param name="endRange"></param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetRange(System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetRange(System.String,System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetRange(System.String,System.String,System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetRange``1(System.String,System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetRange``1(System.String,System.String,System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetNoHeader">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetNoHeader(System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetNoHeader(System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetRangeNoHeader(System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetRangeNoHeader(System.String,System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.WorksheetRangeNoHeader(System.String,System.String,System.Int32)">
+            <summary>
+            Enables Linq queries against an Excel worksheet that does not have a header row
+            </summary>
+            <param name="startRange">Upper left cell name of the range (eg 'B2')</param>
+            <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet``1(System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="fileName">Full path to the Excel spreadsheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet``1(System.Int32,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="fileName">Full path to the Excel spreadsheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet(System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="fileName">Full path to the Excel spreadsheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet(System.Int32,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="fileName">Full path to the Excel spreadsheet</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="fileName">Full path to the Excel spreadsheet</param>
+            <param name="columnMappings">Column to property mappings</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet(System.Int32,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="fileName">Full path to the Excel spreadsheet</param>
+            <param name="columnMappings">Column to property mappings</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet``1(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="fileName">Full path to the Excel spreadsheet</param>
+            <param name="columnMappings">Column to property mappings</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet``1(System.Int32,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="fileName">Full path to the Excel spreadsheet</param>
+            <param name="columnMappings">Column to property mappings</param>
+        </member>
+        <member name="P:LinqToExcel.ExcelQueryFactory.FileName">
+            <summary>
+            Full path to the Excel spreadsheet
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.ExcelQueryFactory.StrictMapping">
+            <summary>
+            Confirms all the worksheet columns are mapped to a property, and if not, throws a StrictMappingException
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.ExcelQueryFactory.TrimSpaces">
+            <summary>
+            Indicates how to treat leading and trailing spaces in string values.
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.ExcelQueryFactory.ReadOnly">
+            <summary>
+            Opens the excel file in read-only mode
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.ExcelQueryFactory.DatabaseEngine">
+            <summary>
+            Sets the database engine to use 
+            (Spreadsheets ending in xlsx, xlsm, and xlsb must use the Ace database engine)
+            (If running 64 bit this defaults to ACE (JET doesn't work anyway), if running 32 bit this detaults to JET)
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.ExcelQueryFactory.UsePersistentConnection">
+            <summary>
+            If true, uses a single, persistent connection for the lifetime of the factory.
+            If false, a new connection is created for each query
+            Default is false
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.Extensions.CommonExtensions.SetProperty(System.Object,System.String,System.Object)">
+            <summary>
+            Sets the value of a property
+            </summary>
+            <param name="propertyName">Name of the property</param>
+            <param name="value">Value to set the property to</param>
+        </member>
+        <member name="M:LinqToExcel.Extensions.CommonExtensions.CallMethod(System.Object,System.String,System.Object[])">
+            <summary>
+            Calls a method
+            </summary>
+            <param name="methodName">Name of the method</param>
+            <param name="args">Method arguments</param>
+            <returns>Return value of the method</returns>
+        </member>
+        <member name="T:LinqToExcel.Query.StrictMappingType">
+            <summary>
+            Class property and worksheet mapping enforcemment type.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.StrictMappingType.Both">
+            <summary>
+            All worksheet columns must map to a class property; all class properties must map to a worksheet columm.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.StrictMappingType.ClassStrict">
+            <summary>
+            All class properties must map to a worksheet column; other worksheet columns are ignored.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.StrictMappingType.None">
+            <summary>
+            No checks are made to enforce worksheet column or class property mappings.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.StrictMappingType.WorksheetStrict">
+            <summary>
+            All worksheet columns must map to a class property; other class properties are ignored.
+            </summary>
+        </member>
+        <member name="T:LinqToExcel.Query.TrimSpacesType">
+            <summary>
+            Indicates how to treat leading and trailing spaces in string values.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.TrimSpacesType.None">
+            <summary>
+            Do not perform any trimming.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.TrimSpacesType.Start">
+            <summary>
+            Trim leading spaces from strings.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.TrimSpacesType.End">
+            <summary>
+            Trim trailing spaces from strings.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.TrimSpacesType.Both">
+            <summary>
+            Trim leading and trailing spaces from strings. 
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.Query.WhereClauseExpressionTreeVisitor.VisitUnaryExpression(System.Linq.Expressions.UnaryExpression)">
+            <summary>
+            This method is visited when the LinqToExcel.Row type is used in the query
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:LinqToExcel.Query.WhereClauseExpressionTreeVisitor.VisitMethodCallExpression(System.Linq.Expressions.MethodCallExpression)" -->
+        <member name="M:LinqToExcel.Query.WhereClauseExpressionTreeVisitor.GetColumnName(System.Linq.Expressions.Expression)">
+            <summary>
+            Retrieves the column name from a member expression or method call expression
+            </summary>
+            <param name="exp">Expression</param>
+        </member>
+        <member name="M:LinqToExcel.Query.WhereClauseExpressionTreeVisitor.GetColumnName(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Retrieves the column name from a member expression
+            </summary>
+            <param name="mExp">Member Expression</param>
+        </member>
+        <member name="M:LinqToExcel.Query.WhereClauseExpressionTreeVisitor.GetColumnName(System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+            Retrieves the column name from a method call expression
+            </summary>
+            <param name="exp">Method Call Expression</param>
+        </member>
+        <member name="M:LinqToExcel.Row.#ctor(System.Collections.Generic.IList{LinqToExcel.Cell},System.Collections.Generic.IDictionary{System.String,System.Int32})">
+            <param name="cells">Cells contained within the row</param>
+            <param name="columnIndexMapping">Column name to cell index mapping</param>
+        </member>
+        <member name="P:LinqToExcel.Row.Item(System.String)">
+            <param name="columnName">Column Name</param>
+        </member>
+        <member name="P:LinqToExcel.Row.ColumnNames">
+            <summary>
+            List of column names in the row object
+            </summary>
+        </member>
+    </members>
+</doc>
