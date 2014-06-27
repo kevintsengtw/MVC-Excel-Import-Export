@@ -1,8 +1,8 @@
-## ASP.NET MVC Excel 匯出與匯入 - 程式範例 ##
+## ASP.NET MVC Excel 匯入與匯出 - 程式範例 ##
 
 **Simple_Sample**
 
-[ASP.NET MVC Excel 匯出與匯入 - 簡單做] 程式範例
+[ASP.NET MVC Excel 匯入與匯出 - 簡單做] 程式範例
 
 部落格文章連結：
 
